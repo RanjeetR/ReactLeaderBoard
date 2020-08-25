@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { apiRequest } from "./services/ApiService";
+import constants from "./env/constant";
+import LeaderBoard from "./components/leaderboard/LeaderBoard";
+import Loader from "./components/loader/Loader";
 
 function App() {
+  const [leaderDetails, setLeaderDetails] = useState([]);
+  useEffect(() => {
+    let param = {
+      method: "get", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    apiRequest(`${constants.API_URL}/all`, param)
+      .then(response => response.json())
+      .then(data => {
+        data.sort((a, b) => b.score - a.score);
+        setLeaderDetails(data);
+      })
+      .catch(err => console.log(err));
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {leaderDetails && leaderDetails.length ? (
+        <LeaderBoard leaderDetails={leaderDetails} />
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }

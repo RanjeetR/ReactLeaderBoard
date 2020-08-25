@@ -1,0 +1,75 @@
+%plus-placeholder-select {
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.leader-board-app {
+  border: 1px solid;
+  width: 60%;
+  padding: 4%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .leader {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    background: #1b9474ba;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    height: auto;
+    color: white;
+    padding: 2%;
+    opacity: 0;
+    animation: fadeInDown ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    .leader-buttons {
+      display: flex;
+      width: 60%;
+      justify-content: space-around;
+      .plus-icon {
+        @extend %plus-placeholder-select;
+        background-image: url("./assets/icons8-plus-math-100.png");
+      }
+      .minus-icon {
+        @extend %plus-placeholder-select;
+        background-image: url("./assets/icons8-subtract-96.png");
+      }
+    }
+    .leader-score,
+    .leader-name {
+      line-height: 4;
+      width: 20%;
+      font-weight: 600;
+      color: black;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
